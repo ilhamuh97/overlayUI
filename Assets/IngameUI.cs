@@ -40,12 +40,16 @@ public class IngameUI : MonoBehaviour {
         {
 
             timeBlur += Time.deltaTime;
-            Color newColor = new Color(1 - timeBlur, 1 - timeBlur, 1 - timeBlur, 1);
+            float ratio = 3 / 2f;
+            Color newColor = new Color(1 - timeBlur*ratio, 1 - timeBlur*ratio, 1 - timeBlur*ratio, 1);
+
 
             pauseMenuButton.GetComponent<Image>().material.SetColor("_Color", newColor);
             pauseMenuButton.GetComponent<Image>().material.SetFloat("_Size", timeBlur*10f);
+
             levelCompleteMenu.GetComponent<Image>().material.SetColor("_Color", newColor);
             levelCompleteMenu.GetComponent<Image>().material.SetFloat("_Size", timeBlur * 10f);
+
             gameOverMenu.GetComponent<Image>().material.SetColor("_Color", newColor);
             gameOverMenu.GetComponent<Image>().material.SetFloat("_Size", timeBlur * 10f);
             Debug.Log(timeBlur);

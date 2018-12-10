@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 public class IngameManager : MonoBehaviour
 {
     public IngameUI inGameUIScripts;
+
     public int wert;
+
     private bool win;
     private bool lose;
+
     public bool paused;
     float timeLeft = 10.0f;
 
