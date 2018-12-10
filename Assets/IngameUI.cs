@@ -18,6 +18,11 @@ public class IngameUI : MonoBehaviour {
     private string[] star2Texts = new string[] { "Not bad!", "Good!", "Good job!" };
     private string[] star1Texts = new string[] { "Could be better!", "Don't give up!", "Lucky!" };
     Text levelCompleteText;
+    public Material blurMaterial;
+    public float timeBlur = 0f;
+    float timeLeft;
+    public bool blurStand = false;
+
 
     public Text text;
 
@@ -31,14 +36,38 @@ public class IngameUI : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (blurStand)
+        {
 
+            timeBlur += Time.deltaTime;
+            Color newColor = new Color(1 - timeBlur, 1 - timeBlur, 1 - timeBlur, 1);
+
+            pauseMenuButton.GetComponent<Image>().material.SetColor("_Color", newColor);
+            pauseMenuButton.GetComponent<Image>().material.SetFloat("_Size", timeBlur*10f);
+            levelCompleteMenu.GetComponent<Image>().material.SetColor("_Color", newColor);
+            levelCompleteMenu.GetComponent<Image>().material.SetFloat("_Size", timeBlur * 10f);
+            gameOverMenu.GetComponent<Image>().material.SetColor("_Color", newColor);
+            gameOverMenu.GetComponent<Image>().material.SetFloat("_Size", timeBlur * 10f);
+            Debug.Log(timeBlur);
+            if(timeBlur > 0.3f)
+            {
+
+                blurStand = false;
+
+                timeBlur = 0;
+            }
+        }
     }
 
-   
-    public void showCountDown(float timeLeft, bool win)
+    public void setTimeLeft(float timeLeft)
+    {
+        this.timeLeft = timeLeft;
+    }
+
+    public void showCountDown(float timeLeft, bool win, bool lose)
     {
         text.text = "Time Left: " + Mathf.Round(timeLeft) + "s";
-        if (win)
+        if (win || lose )
         {
             text.text = "";
         }
@@ -46,7 +75,7 @@ public class IngameUI : MonoBehaviour {
 
     public void ShowLevelCompletePanel(int wert)
     {
-
+       
         Debug.Log("You Win!");
         levelCompleteText = levelCompleteMenu.transform.Find("LevelCompleteText").gameObject.GetComponent<Text>();
         myImageComponent = levelCompleteMenu.transform.Find("StarReceivementImage").gameObject.GetComponent<Image>();
@@ -69,6 +98,7 @@ public class IngameUI : MonoBehaviour {
         levelCompleteMenu.SetActive(true);
         pausePlayButton.SetActive(false);
         pauseMenuButton.SetActive(false);
+        blurStand = true;
 
     }
 
@@ -79,8 +109,9 @@ public class IngameUI : MonoBehaviour {
         pauseButton.SetActive(false);
         //PlayButton.SetActive(true);
         pauseMenuButton.SetActive(true);
+        blurStand = true;
 
-
+       
     }
     public void TogglePlay()
     {
@@ -94,8 +125,7 @@ public class IngameUI : MonoBehaviour {
         Debug.Log("You lose!");
         gameOverMenu.SetActive(true);
         pausePlayButton.SetActive(false);
-        text.text = "";
-        
+        blurStand = true;
     }
     public void HideLevelCompletePanel()
     {

@@ -9,7 +9,10 @@ public class IngameManager : MonoBehaviour
     public int wert;
     private bool win;
     private bool lose;
+    public bool paused;
     float timeLeft = 10.0f;
+
+    public Material blur;
 
 
     // Use this for initialization
@@ -27,14 +30,25 @@ public class IngameManager : MonoBehaviour
     void Update()
     {
 
+        if (!inGameUIScripts.blurStand & paused)
+        {
+
+            Time.timeScale = 0;
+        }
+
         timeLeft -= Time.deltaTime;
 
-        Debug.Log(timeLeft);
+        inGameUIScripts.setTimeLeft(timeLeft);
+        inGameUIScripts.showCountDown(timeLeft, win, lose);
+        
 
-        inGameUIScripts.showCountDown(timeLeft, win);
-        //if lose
-        if (!win)
+
+       
+        //if not win and not lose
+        if (!win & !lose)
         {
+
+
             lose |= timeLeft < 0;
             if (lose)
             {
@@ -47,6 +61,7 @@ public class IngameManager : MonoBehaviour
 
             }
         }
+
     }
 
     void Win()
@@ -78,12 +93,19 @@ public class IngameManager : MonoBehaviour
     }
     public void Pause()
     {
+        //
+        timeLeft += 0.3f;
+        paused = true;
         inGameUIScripts.TogglePause();
-        Time.timeScale = 0f;
+        Debug.Log("before: " + inGameUIScripts.blurStand + "##########################");
+       
+     
+
     }
     public void Resume()
     {
         inGameUIScripts.TogglePlay();
+        paused = false;
         Time.timeScale = 1f;
     }
 

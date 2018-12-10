@@ -299,6 +299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGameUIScripts: {fileID: 556846561}
   wert: 2
+  paused: 0
+  blur: {fileID: 0}
 --- !u!4 &239305925
 Transform:
   m_ObjectHideFlags: 0
@@ -606,6 +608,9 @@ MonoBehaviour:
   playButton: {fileID: 937703808}
   pauseMenuButton: {fileID: 694748747}
   pausePlayButton: {fileID: 1976778886}
+  blurMaterial: {fileID: 2100000, guid: 3a5d253f3e4a5424fa03ec16f70e96b5, type: 2}
+  timeBlur: 0
+  blurStand: 0
   text: {fileID: 379904750}
 --- !u!1 &614495918 stripped
 GameObject:
@@ -776,7 +781,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1577802183868750, guid: 8317b86e64e1345fbb1826bd80c73d7c, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8317b86e64e1345fbb1826bd80c73d7c, type: 2}
@@ -1137,7 +1142,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1731448548930182, guid: 1f8715c16a0394e469f6638c7c72079e, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224388477711236724, guid: 1f8715c16a0394e469f6638c7c72079e,
         type: 2}
@@ -1291,7 +1296,7 @@ Prefab:
       objectReference: {fileID: 239305924}
     - target: {fileID: 1091086826223266, guid: 51493e4f3093d4c198e83e6844385380, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114538100598453100, guid: 51493e4f3093d4c198e83e6844385380,
         type: 2}
